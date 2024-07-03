@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchBar from './SearchBar';
 export default function Main() {
 	const [data, setData] = useState([]);
+	const [filterData, setFilterData] = useState([]);
 	const [stateProvince, setStateProvince] = useState([]);
 
 	// let flag = false;
@@ -26,12 +27,9 @@ export default function Main() {
 		// get unique state-province for the given country
 		// flag = true;
 	}
-	function handleSelect() {
-		setData(
-			data.map((val) => {
-				console.log(val);
-			})
-		);
+	let tmp = [];
+	function handleSelect(selectedStateProvince) {
+		data.filter((d) => d['state-province'] == selectedStateProvince);
 	}
 	useEffect(() => {
 		const uniqueStateProvince = new Set();
@@ -40,15 +38,19 @@ export default function Main() {
 				uniqueStateProvince.add(d['state-province']);
 		}
 		setStateProvince(Array.from(uniqueStateProvince));
-		// console.log(stateProvince);
 	}, [data]);
 	return (
 		<>
 			<SearchBar
 				handleSearch={handleSearch}
 				stateProvince={stateProvince}
+				handleSelect={handleSelect}
 			/>
-			<Card data={data} />
+			<Card
+				data={data}
+				// filterData={filterData}
+				// selectedStateProvince={stateProvince}
+			/>
 		</>
 	);
 }

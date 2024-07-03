@@ -4,15 +4,20 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { useRef, useState } from 'react';
 import Card from './Card';
 // import { useRef } from 'react';
-export default function SearchBar({ handleSearch, stateProvince }) {
+export default function SearchBar({
+	handleSearch,
+	stateProvince,
+	handleSelect,
+}) {
 	const [search, setSearch] = useState('');
 	// console.log(stateProvince);
 	// console.log(stateProvince);
 	// function searchHandler() {}
 	// const ref = useRef(null);
 	// console.log(stateProvince);
-	function handleSelect(e) {
-		console.log(e.target.value);
+	function handleSelects(e) {
+		handleSelect(e.target.value);
+		// console.log(e.target.value);
 	}
 	return (
 		<>
@@ -34,7 +39,7 @@ export default function SearchBar({ handleSearch, stateProvince }) {
 				<Form.Select
 					size='lg'
 					className='m-1'
-					onChange={(e) => handleSelect(e)}
+					onChange={(e) => handleSelects(e)}
 				>
 					<option>none</option>
 					{stateProvince.map((_, idx) => {
